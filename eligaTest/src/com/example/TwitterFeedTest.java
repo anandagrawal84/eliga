@@ -1,6 +1,7 @@
 package com.example;
 
 import android.test.ActivityInstrumentationTestCase2;
+import com.example.TwitterFeed;
 
 /**
  * This is a simple framework for a test of an Application.  See
