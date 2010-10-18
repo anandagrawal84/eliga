@@ -1,7 +1,6 @@
 package com.example;
 
 import android.content.Context;
-import android.database.DataSetObserver;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;

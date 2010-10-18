@@ -4,19 +4,13 @@ import android.app.ListActivity;
 import android.net.http.AndroidHttpClient;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.SimpleAdapter;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
-import org.xml.sax.InputSource;
-import org.xml.sax.XMLReader;
 
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-import java.io.*;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class TwitterFeed extends ListActivity {
@@ -31,7 +25,7 @@ public class TwitterFeed extends ListActivity {
 
         makeTwitterRequest();
         List<Tweet> tweets = examineXMLFile(response);
-        
+
         setListAdapter(new ImageAdapter(this, tweets));
     }
 
@@ -64,16 +58,8 @@ public class TwitterFeed extends ListActivity {
 
     private List<Tweet> examineXMLFile(HttpResponse httpResponse) {
         try {
-            InputStream content = httpResponse.getEntity().getContent();
-            InputSource is = new InputSource(content);
-            SAXParserFactory factory = SAXParserFactory.newInstance();
-            SAXParser parser = factory.newSAXParser();
-            XMLReader xmlreader = parser.getXMLReader();
-            TwitterFeedHandler tfh = new TwitterFeedHandler();
-
-            xmlreader.setContentHandler(tfh);
-            xmlreader.parse(is);
-            return tfh.getResults();
+            TwitterFeedParser twitterFeedParser = new TwitterFeedParser();
+            return twitterFeedParser.parse(httpResponse.getEntity().getContent());
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -81,31 +67,4 @@ public class TwitterFeed extends ListActivity {
         return new ArrayList<Tweet>();
     }
 
-    public String convertStreamToString(InputStream is)
-            throws IOException {
-        /*
-         * To convert the InputStream to String we use the
-         * Reader.read(char[] buffer) method. We iterate until the
-         * Reader return -1 which means there's no more data to
-         * read. We use the StringWriter class to produce the string.
-         */
-        if (is != null) {
-            Writer writer = new StringWriter();
-
-            char[] buffer = new char[1024];
-            try {
-                Reader reader = new BufferedReader(
-                        new InputStreamReader(is, "UTF-8"));
-                int n;
-                while ((n = reader.read(buffer)) != -1) {
-                    writer.write(buffer, 0, n);
-                }
-            } finally {
-                is.close();
-            }
-            return writer.toString();
-        } else {
-            return "";
-        }
-    }
 }
