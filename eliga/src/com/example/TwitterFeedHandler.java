@@ -40,10 +40,10 @@ public class TwitterFeedHandler extends DefaultHandler {
                              Attributes atts) throws SAXException {
 
         try {
-            if (localName.equals("entry")) {
+            if (qName.equals("entry")) {
                 currentTweet = new Tweet();
             }
-            if (localName.equals("link")) {
+            if (qName.equals("link")) {
                 sb.append(atts.getValue("href"));
             }
 
@@ -58,13 +58,13 @@ public class TwitterFeedHandler extends DefaultHandler {
     public void endElement(String namespaceURI, String localName, String qName)
             throws SAXException {
         if (currentTweet != null) {
-            if (localName.equals("title")) {
+            if (qName.equals("title")) {
                 currentTweet.setTitle(sb.toString());
             }
-            if (localName.equals("link")) {
+            if (qName.equals("link")) {
                 currentTweet.setImageUrl(sb.toString());
             }
-            if (localName.equals("entry")) {
+            if (qName.equals("entry")) {
                 tweets.add(currentTweet);
             }
         }
