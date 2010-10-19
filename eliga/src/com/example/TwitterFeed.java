@@ -31,7 +31,6 @@ public class TwitterFeed extends ListActivity {
 
     private void makeTwitterRequest() {
         Runnable searchRequest = new Runnable() {
-            @Override
             public void run() {
                 HttpUriRequest request = new HttpGet("http://search.twitter.com/search.atom?q=%23sachin");
                 HttpClient client = AndroidHttpClient.newInstance("Mozilla/5.0");

@@ -1,15 +1,19 @@
 package com.example;
 
-import org.junit.Test;
+import com.example.TwitterFeedParser;
 
 import java.io.InputStream;
 
-public class TwitterFeedParserTest {
+import junit.framework.TestCase;
 
-    @Test
-    public void shouldExtractTweetsFromTwitterEntries() {
+public class TwitterFeedParserTest extends TestCase {
+
+    public void testExtractTweetsFromTwitterEntries() {
+    	System.out.println("HEllo");
         InputStream stream = multipleTwitterEntries();
         TwitterFeedParser parser = new TwitterFeedParser();
+        parser.parse(stream);
+        assertTrue(true);
     }
 
     private InputStream multipleTwitterEntries() {

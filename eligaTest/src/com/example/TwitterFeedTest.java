@@ -1,6 +1,5 @@
 package com.example;
 
-import android.test.ActivityInstrumentationTestCase2;
 import com.example.TwitterFeed;
 
 /**
@@ -13,10 +12,10 @@ import com.example.TwitterFeed;
  * -e class com.example.TwitterFeedTest \
  * com.example.tests/android.test.InstrumentationTestRunner
  */
-public class TwitterFeedTest extends ActivityInstrumentationTestCase2<TwitterFeed> {
+public class TwitterFeedTest {//extends ActivityInstrumentationTestCase2<TwitterFeed> {
 
     public TwitterFeedTest() {
-        super("com.example", TwitterFeed.class);
+      //  super("com.example", TwitterFeed.class);
     }
 
 }
