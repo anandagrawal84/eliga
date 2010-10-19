@@ -51,8 +51,6 @@ public class TwitterFeed extends ListActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        Log.d("mylog", "end join");
     }
 
     private List<Tweet> examineXMLFile(HttpResponse httpResponse) {
