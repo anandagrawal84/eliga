@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="eliga" default="install">
+<project name="eliga" default="install" xmlns:android="antlib:com.googlecode.autoandroid.ant">
 
     <!--
         This rules file is meant to be imported by the custom Ant task:
@@ -586,4 +586,20 @@
         <echo>   uninstall: Uninstalls the application from a running emulator or</echo>
         <echo>              device.</echo>
     </target>
+	
+	<taskdef uri="antlib:com.googlecode.autoandroid.ant" classpath="libs/android-ant.jar"/>
+	<android:home/> <!-- Set the detected android-home property to the sdk root. -->
+
+	
+	<target name="start-emulator" description="Start an emulator.">
+		<android:adb><arg value="start-server"/></android:adb>
+		<android:start-emulator only-if-not-running="true">
+			<arg line="-skin 320x480 -no-boot-anim"/>
+		</android:start-emulator>
+	</target>
+
+	<target name="stop-emulator" description="Stop the emulator we started.">
+		<android:stop-emulator/>
+	</target>
+
 </project>
